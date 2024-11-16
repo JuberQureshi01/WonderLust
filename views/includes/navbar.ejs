@@ -1,0 +1,414 @@
+<style>
+  .search-btn {
+    position: relative;
+    background-color: #fe424d;
+    color: #fff;
+    left: 0vw;
+    border-radius: 25px;
+    padding: 8px 1rem 9px 1rem;
+
+  }
+
+  .search-btn:hover {
+    background-color: #fe424d;
+    color: #fff;
+  }
+
+  .search-btn i {
+    display: inline;
+    margin-right: 0.5rem;
+
+  }
+
+  .search-inp {
+    border-radius: 25px;
+    padding: 0.5rem 1rem 0.5rem 1.5rem;
+     border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border:none;
+    margin-right: 5px;
+  }
+
+  /* Calendar and button styles */
+  .calendar-container {
+    display: none;
+    /* Initially hidden */
+    margin-top: 20px;
+  }
+
+  .calendar {
+    --side-padding: 20px;
+    --border-radius: 34px;
+    --accent-br: 15px;
+    width: 40vw;
+  }
+
+  .calendar select {
+
+    background-color: #f3f4f6;
+    padding: 4px 38px;
+    border-radius: 23px;
+  }
+
+  .calendar__opts,
+  .calendar__buttons {
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 15px;
+    padding-bottom: 1vw;
+    padding-left: 5vw;
+  }
+
+  .calendar__opts {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    padding: 20px var(--side-padding);
+  }
+
+  .calendar__body {
+    background-image: linear-gradient(to bottom, #f3f4f6, #fff);
+  }
+
+  .calendar__days {
+    background-color: #fff;
+    padding: 0 var(--side-padding) 10px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .calendar__days>div {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: #c5c8ca;
+  }
+
+  .calendar__dates {
+    padding: 10px var(--side-padding);
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .calendar__date {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.02rem;
+    cursor: pointer;
+  }
+
+  /* Style div as buttons */
+  .calendar__div-button {
+    display: inline-block;
+    background-color: #686b73;
+    color: #fff;
+    padding: 3px 4px;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    width: 60%;
+  }
+
+  .calendar__div-button--primary {
+    background-color: #ff374b;
+  }
+
+  .calendar__div-button:hover {
+    background-color: #e1e1e3;
+    transition: background-color 0.3s ease;
+  }
+
+  .selectBtn {
+    left: -0.7vw;
+    background-color: #ffffff;
+    color: #6c6a6a;
+    padding: 6px 2px;
+    width: 10vw;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-left: 1px solid rgb(214, 210, 210);
+    border-right: 1px solid rgb(214, 210, 210);
+    margin-left: 0.5vw;
+  }
+
+  .searchBtn:hover {
+    background-color: #fe424d;
+    color: #fe424d;
+  }
+
+  .calendar__buttons {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  /* Selected date */
+  .selected-date {
+    background-color: #ff374b;
+    /* Red background for selected dates */
+    color: white;
+    border-radius: 10px;
+    /* Border radius updated to 10px */
+    padding: 2px 5px;
+    font-weight: bold;
+    opacity: 1;
+    /* Full opacity for selected dates */
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+  }
+
+  /* Dates in range */
+  .in-range {
+    background-color: #fe424d;
+    /* Light red background for dates in range */
+    color: white;
+    border-radius: 5px;
+    /* Border radius updated to 10px */
+    opacity: 1;
+    /* Reduced opacity for dates in the range */
+  }
+
+  /* All other dates (not selected or in range) */
+  .calendar__date {
+    opacity: 1;
+    /* Reduced opacity for non-selected dates */
+    border-radius: 5px;
+    /* Border radius set to 10px */
+  }
+
+  /* Hover effects for both selected and in-range dates */
+  .selected-date:hover,
+  .in-range:hover {
+    background-color: #d62a3c;
+    /* Darker red on hover */
+    opacity: 1;
+    /* Ensure full opacity when hovering */
+  }
+
+  /* Hover effect for normal dates */
+  .calendar__date:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    /* Slight hover effect for non-selected dates */
+    opacity: 0.7;
+    /* Slight increase in opacity on hover */
+  }
+  .Searching{
+    margin-left: 16vw;
+    border: 1px solid rgb(214, 210, 210);
+    padding: 2px 4px;
+    border-top-left-radius: 65px;
+    border-bottom-left-radius: 65px;
+    border-top-right-radius: 65px;
+    border-bottom-right-radius: 65px;
+}
+
+</style>
+<nav class="navbar navbar-expand-sm bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings/search"><i class="fa-regular fa-compass"></i></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings">Explore</a>
+      </div>
+
+      <div class="Searching">
+      <form class="d-flex navbar-nav ms-auto align-items-center " role="search" action="/listings/search">
+        <!-- Search input -->
+        <input class="form-control me-2 search-inp" type="search" name="query" placeholder="Search destinations">
+
+        <!-- Select Date button -->
+        <div class="position-relative">
+          <div id="showCalendarBtn" class="calendar__div-button selectBtn">Select Date</div>
+
+          <!-- Calendar container (positioned absolutely to avoid affecting layout) -->
+          <div class="calendar-container position-absolute" id="calendarContainer" style="z-index: 10;">
+            <div class="calendar">
+              <div class="calendar__opts">
+                <select id="calendar__month">
+                  <option value="0">January</option>
+                  <option value="1">February</option>
+                  <option value="2">March</option>
+                  <option value="3">April</option>
+                  <option value="4">May</option>
+                  <option value="5">June</option>
+                  <option value="6">July</option>
+                  <option value="7">August</option>
+                  <option value="8">September</option>
+                  <option value="9">October</option>
+                  <option value="10">November</option>
+                  <option value="11">December</option>
+                </select>
+
+                <select id="calendar__year">
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                </select>
+              </div>
+
+              <div class="calendar__body">
+                <div class="calendar__days">
+                  <div>Sun</div>
+                  <div>Mon</div>
+                  <div>Tue</div>
+                  <div>Wed</div>
+                  <div>Thu</div>
+                  <div>Fri</div>
+                  <div>Sat</div>
+                </div>
+
+                <div class="calendar__dates" id="calendar__dates"></div>
+              </div>
+
+              <div class="calendar__buttons">
+                <div class="calendar__div-button" id="cancelBtn">Cancel</div>
+                <div class="calendar__div-button calendar__div-button--primary" id="applyBtn">Apply</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Search button -->
+        <button class="btn search-btn d-flex align-items-center" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings/new">Airbnb your home</a>
+        <% if(!currUser) {%>
+          <a class="nav-link " aria-current="page" href="/signup"><b>Sign up</b></a>
+          <a class="nav-link" href="/login"><b>Log in</b> </a>
+          <% } %>
+            <% if(currUser){ %>
+              <a class="nav-link" href="/logout"><b>Log out</b></a>
+              <% } %>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<% if(currentPath===`/listings/category/${hotelCategory[0]}` ||currentPath==='/listings' ||
+  currentPath==='/listings/:id' ||currentPath===`/listings/category/${hotelCategory[0]}`
+  ||currentPath===`/listings/category/${hotelCategory[1]}`||currentPath===`/listings/category/${hotelCategory[2]}`||currentPath===`/listings/category/${hotelCategory[3]}`||currentPath===`/listings/category/${hotelCategory[4]}`||currentPath===`/listings/category/${hotelCategory[5]}`||currentPath===`/listings/category/${hotelCategory[6]}`||currentPath===`/listings/category/${hotelCategory[7]}`||currentPath===`/listings/category/${hotelCategory[8]}`||currentPath===`/listings/category/${hotelCategory[9]}`||currentPath===`/listings/category/${hotelCategory[10]}`
+  ) {%>
+  <div>
+    <div id="semi-nav">
+      <p id="left-btn" class="btn1"><i class="fa-solid fa-less-than"></i></p>
+      <div id="filters">
+        <div class="filter icon"><a href="/listings/category/<%= hotelCategory[0] %>">
+            <i class="fa-solid fa-fire"></i>
+            <p>
+              <%= hotelCategory[0] %>
+            </p>
+        </div></a>
+        <div class="filter icon">
+          <a href="/listings/category/<%= hotelCategory[1] %>"><i class="fa-solid fa-bed"></i>
+            <p>
+              <%= hotelCategory[1] %>
+            </p>
+          </a>
+        </div>
+        <div class="filter icon">
+          <a href="/listings/category/<%= hotelCategory[2] %>"><i class="fa-solid fa-mountain-city"></i>
+            <p>
+              <%= hotelCategory[2] %>
+            </p>
+          </a>
+        </div>
+        <div class="filter icon">
+          <a href="/listings/category/<%= hotelCategory[3] %>"><i class="fa-solid fa-mountain"></i>
+            <p>
+              <%= hotelCategory[3] %>
+            </p>
+          </a>
+        </div>
+        <div class="filter icon">
+          <a href="/listings/category/<%= hotelCategory[4] %>">
+            <div><i class="fa-solid fa-person-swimming"></i></div>
+            <p>
+              <%= hotelCategory[4] %>
+            </p>
+          </a>
+        </div>
+        <div class="filter icon">
+          <a href="/listings/category/<%= hotelCategory[5] %>">
+            <div><i class="fa-solid fa-campground"></i></div>
+            <p>
+              <%= hotelCategory[5] %>
+            </p>
+          </a>
+        </div>
+        <div class="filter icon">
+          <a href="/listings/category/<%= hotelCategory[6] %>">
+            <div><i class="fa-brands fa-fort-awesome"></i></div>
+            <p>
+              <%= hotelCategory[6] %>
+            </p>
+          </a>
+        </div>
+        <div class="filter icon">
+          <a href="/listings/category/<%= hotelCategory[7] %>">
+            <i class="fa-solid fa-cow"></i>
+            <p>
+              <%= hotelCategory[7] %>
+            </p>
+          </a>
+        </div>
+
+        <div class="filter icon">
+          <a href="/listings/category/<%= hotelCategory[8] %>">
+            <div><i class="fa-regular fa-snowflake"></i></div>
+            <p>
+              <%= hotelCategory[8] %>
+            </p>
+          </a>
+        </div>
+        <div class="filter icon">
+          <a href="/listings/category/<%= hotelCategory[9] %>">
+            <i class="fa-solid fa-igloo"></i>
+            <p>
+              <%= hotelCategory[9] %>
+            </p>
+          </a>
+        </div>
+        <div class="filter icon"><a href="/listings/category/<%= hotelCategory[0] %>">
+            <i class="fa-solid fa-fire"></i>
+            <p>
+              <%= hotelCategory[0] %>
+            </p>
+        </div></a>
+        <div class="filter icon">
+          <a href="/listings/category/<%= hotelCategory[9] %>">
+            <i class="fa-solid fa-igloo"></i>
+            <p>
+              <%= hotelCategory[9] %>
+            </p>
+          </a>
+        </div>
+      </div>
+      <p id="right-btn" class="btn1"><i class="fa-solid fa-greater-than"></i></p>
+
+      <div class="tax-toggle ">
+        <div class="form-check-reverse form-switch border-dark">
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+      <script>
+        // Access hotelCategory set in res.locals
+        const hotelCategory = <% - JSON.stringify(hotelCategory) %>;
+        const currentPath = <% - JSON.stringify(currentPath) %>; //to track the path
+
+      </script>
+      <script src="script.js"></script>
