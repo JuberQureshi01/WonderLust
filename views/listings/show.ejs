@@ -4,7 +4,9 @@
  let listings = <%- JSON.stringify(listings) %>
 </script>
 
-        <div class="row mt-3">
+
+
+        <div class="row mt-3 show">
             <div class="col-8 offset-3">
                 <h3>
                     <%= listings.title %>
@@ -14,7 +16,6 @@
                 <img src="<%= listings.image.url %>" class="card-img-top show-img mb-1" alt="listing_image">
                 <div class="card-body">
                     <p class="card-text">
-                        Owned by: 
                         <% if (listings.owner) { %>
                             <p class="card-text">
                                 Owned by: <i><b><%= listings.owner.username %></b></i>
@@ -45,7 +46,7 @@
             </div>
             <% } %>
 
-                <div class="col-8 offset-3 mb-3">
+                <div class="col-8 offset-3 mb-3 showReview">
                     
                     <% if(currUser) {%>
                     <hr>
@@ -82,7 +83,7 @@
                     <p><b>All the reviews</b></p>
                     <div class="row">
                         <% for(review of listings.reviews) { %>
-                            <div class="card col-5 mb-3 ms-3">
+                            <div class="card col-5 mb-3 ms-3 reviewCard">
                                 <div class="card-body">
                                     <h5 class="card-title"> @<%= review.author.username %></h5>
                                     <p class="starability-result card-text" data-rating= "<%= review.rating %>">

@@ -204,11 +204,28 @@
     border-top-right-radius: 65px;
     border-bottom-right-radius: 65px;
 }
+@media (max-width:600px) {
+  .search-btn i{
+    width:fit-content !important ;
+  }
+  .search-btn{
+    width: fit-content;
+  }
+  .Searching{
+    border: none;
+  }
+  .Searching *{
+    border: none;
+  }
+}
+.container-fluid{
+  background-color: white;
+}
 
 </style>
 <nav class="navbar navbar-expand-sm bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/listings/search"><i class="fa-regular fa-compass"></i></a>
+    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
       aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

@@ -195,3 +195,14 @@
     -webkit-transition: background-position .7s;
     transition: background-position .7s;
   }
+  .card-title{
+    margin-top: 1vw;
+}
+.reviewCard{
+    min-width: 190px;
+    /* background-color: red; */
+    max-width: 240px;
+}
+.edit-btn{
+  width: fit-content;
+}
