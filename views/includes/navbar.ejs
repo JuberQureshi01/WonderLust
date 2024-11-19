@@ -217,11 +217,19 @@
   .Searching *{
     border: none;
   }
+  .search-inp{
+    margin-bottom: 5px;
+    border-radius: 25px;
+  }
+  #showCalendarBtn{
+    margin-bottom: 5px;
+    border-radius: 25px;
+    scale: 0.9;
+  }
 }
 .container-fluid{
   background-color: white;
 }
-
 </style>
 <nav class="navbar navbar-expand-sm bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
@@ -316,7 +324,7 @@
   currentPath==='/listings/:id' ||currentPath===`/listings/category/${hotelCategory[0]}`
   ||currentPath===`/listings/category/${hotelCategory[1]}`||currentPath===`/listings/category/${hotelCategory[2]}`||currentPath===`/listings/category/${hotelCategory[3]}`||currentPath===`/listings/category/${hotelCategory[4]}`||currentPath===`/listings/category/${hotelCategory[5]}`||currentPath===`/listings/category/${hotelCategory[6]}`||currentPath===`/listings/category/${hotelCategory[7]}`||currentPath===`/listings/category/${hotelCategory[8]}`||currentPath===`/listings/category/${hotelCategory[9]}`||currentPath===`/listings/category/${hotelCategory[10]}`
   ) {%>
-  <div>
+  <div class="slider">
     <div id="semi-nav">
       <p id="left-btn" class="btn1"><i class="fa-solid fa-less-than"></i></p>
       <div id="filters">
@@ -412,6 +420,7 @@
         </div>
       </div>
       <p id="right-btn" class="btn1"><i class="fa-solid fa-greater-than"></i></p>
+      </div>
 
       <div class="tax-toggle ">
         <div class="form-check-reverse form-switch border-dark">

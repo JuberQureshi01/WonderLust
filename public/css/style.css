@@ -140,7 +140,7 @@ body {
 #filters {
   display: flex;
   /* flex-wrap: wrap; */
-  width: 48%;
+  width: 50vw;
   align-items: center;
   overflow: hidden;
   transition: transform 0.5s ease;
@@ -209,10 +209,16 @@ body {
 
 #semi-nav {
   display: flex;
-  justify-content: center;
+      justify-content: center;
+      align-items: center;
+      /* position: relative; */
+      /* left: 4vw; */
+      margin-left: 6vw;
+}
+.slider{
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  position: relative;
-  left: -2vw;
 }
 
 /* Category Slider End */
@@ -267,9 +273,33 @@ body {
   }
 
   .tax-toggle {
-    scale: 0.7;
-    width: fit-content;
+    width: 94%;
+    font-size: 4.5vw;
+    border: 1px solid black;
+    margin-left: 10px;
   }
+
+  #semi-nav{
+    width: 100%;
+    padding: 0 !important;
+    margin-left: -10px;
+  }
+
+  #filters{
+  width: 73%;
+  }
+  #left-btn{
+    margin-left: 18px;
+  }
+  .slider{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: -12px;
+  }
+  
 .signup{
     width: 80% !important;
     margin-top: 70px !important;
